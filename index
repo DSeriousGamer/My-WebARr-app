@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Basic AR.js Scene</title>
+    <!-- Import A-Frame -->
+    <script src="https://aframe.io"></script>
+    <!-- Import AR.js for A-Frame -->
+    <script src="https://githack.com"></script>
+  </head>
+  <body style="margin: 0px; overflow: hidden;">
+    <!-- Core AR Scene Setup -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+      
+      <!-- Define the target marker (Using the default Hiro marker) -->
+      <a-marker preset="hiro">
+        <!-- The 3D asset to render when the marker is seen -->
+        <a-box position="0 0.5 0" material="color: red;" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000"></a-box>
+      </a-marker>
+
+      <!-- Active Camera Link to WebAR Tracking -->
+      
+      
+    </a-scene>
+  </body>
+</html>
