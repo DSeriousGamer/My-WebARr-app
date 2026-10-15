@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Basic AR.js Scene</title>
-    <!-- Import A-Frame -->
-    <script src="https://aframe.io"></script>
-    <!-- Import AR.js for A-Frame -->
+    <title>Fixed AR.js iOS App</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- Use A-Frame 1.3.0 coupled with the production-stable AR.js build -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://githack.com"></script>
+    
+    <style>
+      /* Splash screen to force a user gesture on iOS */
+      #splash {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #111; color: white; display: flex; flex-direction: column;
+        justify-content: center; align-items: center; z-index: 99999;
+        font-family: sans-serif;
+      }
+      button {
+        padding: 12px 24px; font-size: 18px; font-weight: bold;
+        background: #ff3366; color: white; border: none; border-radius: 8px; cursor: pointer;
+      }
+    </style>
   </head>
   <body style="margin: 0px; overflow: hidden;">
-    <!-- Core AR Scene Setup -->
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      
-      <!-- Define the target marker (Using the default Hiro marker) -->
+
+    <div id="splash">
+      <h2>WebAR Experience</h2>
+      <p>This application requires camera access.</p>
+      <button id="start-btn">Start Camera</button>
+    </div>
+
+    <!-- The actual AR scene starts hidden -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" style="display: none;">
       <a-marker preset="hiro">
-        <!-- The 3D asset to render when the marker is seen -->
         <a-box position="0 0.5 0" material="color: red;" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000"></a-box>
       </a-marker>
-
-      <!-- Active Camera Link to WebAR Tracking -->
-      
       
     </a-scene>
+
+    <script>
+      document.getElementById('start-btn').addEventListener('click', function () {
+        // Remove splash layout
+        document.getElementById('splash').style.display = 'none';
+        
+        // Display the interactive AR scene canvas
+        const scene = document.querySelector('a-scene');
+        scene.style.display = 'block';
+        
+        // Programmatically initialize the tracking engine components
+        scene.initialize();
+      });
+    </script>
   </body>
 </html>
